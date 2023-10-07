@@ -6,6 +6,7 @@ import br.com.learing.salessamuel.forum.DTO.Views.TopicView
 import br.com.learing.salessamuel.forum.Domain.Models.Topic
 import br.com.learing.salessamuel.forum.Service.TopicService
 import jakarta.validation.Valid
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -36,5 +37,10 @@ class TopicController(private val topicService: TopicService) {
     @PutMapping
     fun edit(@RequestBody @Valid topicEditForm: TopicEditForm) {
         topicService.edit(topicEditForm)
+    }
+
+    @DeleteMapping("/{id}")
+    fun delete(@PathVariable id: Long) {
+        topicService.delete(id)
     }
 }

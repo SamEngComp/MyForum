@@ -45,6 +45,11 @@ class TopicService(private var topics: List<Topic> = ArrayList(),
         ))
     }
 
+    fun delete(id: Long) {
+        val topic = searchTopicForId(id)
+        topics = topics.minus(topic)
+    }
+
     private fun searchTopicForId(id: Long): Topic {
         return topics.stream().filter({ t -> t.id == id }).findFirst().get()
     }
