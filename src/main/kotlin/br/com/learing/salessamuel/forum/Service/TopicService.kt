@@ -4,6 +4,7 @@ import br.com.learing.salessamuel.forum.DTO.Forms.TopicRegisterForm
 import br.com.learing.salessamuel.forum.DTO.Forms.TopicEditForm
 import br.com.learing.salessamuel.forum.DTO.Views.TopicView
 import br.com.learing.salessamuel.forum.Domain.Models.Topic
+import br.com.learing.salessamuel.forum.Exception.NotFoundException
 import br.com.learing.salessamuel.forum.Mapper.TopicRegisterFormMapper
 import br.com.learing.salessamuel.forum.Mapper.TopicViewMapper
 import org.springframework.stereotype.Service
@@ -13,6 +14,8 @@ import java.util.stream.Collectors
 class TopicService(private var topics: List<Topic> = ArrayList(),
                    private val topicViewMapper: TopicViewMapper,
                    private val topicRegisterFormMapper: TopicRegisterFormMapper) {
+
+    private val notFoundMessage: String = "Topic not found!"
 
     fun lis(): List<TopicView> {
         return this.topics.stream().map {
@@ -54,6 +57,8 @@ class TopicService(private var topics: List<Topic> = ArrayList(),
     }
 
     private fun searchTopicForId(id: Long): Topic {
-        return topics.stream().filter({ t -> t.id == id }).findFirst().get()
+        return topics.stream().filter({ t -> t.id == id })
+            .findFirst()
+            .orElseThrow { NotFoundException(notFoundMessage) }
     }
 }
