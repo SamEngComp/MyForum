@@ -4,6 +4,7 @@ import br.com.learing.salessamuel.forum.DTO.Forms.TopicRegisterForm
 import br.com.learing.salessamuel.forum.DTO.Views.TopicView
 import br.com.learing.salessamuel.forum.Domain.Models.Topic
 import br.com.learing.salessamuel.forum.Service.TopicService
+import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -26,7 +27,7 @@ class TopicController(private val topicService: TopicService) {
     }
 
     @PostMapping
-    fun register(@RequestBody topicRegisterForm: TopicRegisterForm) {
+    fun register(@RequestBody @Valid topicRegisterForm: TopicRegisterForm) {
         topicService.register(topicRegisterForm)
     }
 }
