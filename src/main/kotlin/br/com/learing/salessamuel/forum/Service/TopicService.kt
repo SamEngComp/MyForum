@@ -25,15 +25,16 @@ class TopicService(private var topics: List<Topic> = ArrayList(),
         return topicViewMapper.map(topic)
     }
 
-    fun register(topicRegisterForm: TopicRegisterForm) {
+    fun register(topicRegisterForm: TopicRegisterForm): TopicView {
         val topic = topicRegisterFormMapper.map(topicRegisterForm)
         topic.id = topics.size.toLong() + 1
         topics = topics.plus(topic)
+        return topicViewMapper.map(topic)
     }
 
-    fun edit(topicEditForm: TopicEditForm) {
+    fun edit(topicEditForm: TopicEditForm): TopicView {
         val topic = searchTopicForId(topicEditForm.id)
-        topics = topics.minus(topic).plus(Topic(
+        val topicEdited = Topic(
             id = topic.id,
             title = topicEditForm.title,
             message = topicEditForm.message,
@@ -42,7 +43,9 @@ class TopicService(private var topics: List<Topic> = ArrayList(),
             author = topic.author,
             status = topic.status,
             answers = topic.answers
-        ))
+        )
+        topics = topics.minus(topic).plus(topicEdited)
+        return topicViewMapper.map(topicEdited)
     }
 
     fun delete(id: Long) {
