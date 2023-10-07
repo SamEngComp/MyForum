@@ -1,6 +1,6 @@
-package br.com.learing.salessamuel.forum.DTO
+package br.com.learing.salessamuel.forum.DTO.Forms
 
-data class TopicRegisterDTO (
+data class TopicRegisterForm (
     val title: String,
     val message: String,
     val courseID: Long,
