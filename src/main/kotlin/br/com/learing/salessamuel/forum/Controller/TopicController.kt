@@ -1,5 +1,6 @@
 package br.com.learing.salessamuel.forum.Controller
 
+import br.com.learing.salessamuel.forum.DTO.Forms.TopicEditForm
 import br.com.learing.salessamuel.forum.DTO.Forms.TopicRegisterForm
 import br.com.learing.salessamuel.forum.DTO.Views.TopicView
 import br.com.learing.salessamuel.forum.Domain.Models.Topic
@@ -8,6 +9,7 @@ import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -29,5 +31,10 @@ class TopicController(private val topicService: TopicService) {
     @PostMapping
     fun register(@RequestBody @Valid topicRegisterForm: TopicRegisterForm) {
         topicService.register(topicRegisterForm)
+    }
+
+    @PutMapping
+    fun edit(@RequestBody @Valid topicEditForm: TopicEditForm) {
+        topicService.edit(topicEditForm)
     }
 }

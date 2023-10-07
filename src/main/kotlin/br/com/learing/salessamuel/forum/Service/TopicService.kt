@@ -1,6 +1,7 @@
 package br.com.learing.salessamuel.forum.Service
 
 import br.com.learing.salessamuel.forum.DTO.Forms.TopicRegisterForm
+import br.com.learing.salessamuel.forum.DTO.Forms.TopicEditForm
 import br.com.learing.salessamuel.forum.DTO.Views.TopicView
 import br.com.learing.salessamuel.forum.Domain.Models.Topic
 import br.com.learing.salessamuel.forum.Mapper.TopicRegisterFormMapper
@@ -20,7 +21,7 @@ class TopicService(private var topics: List<Topic> = ArrayList(),
     }
 
     fun searchForId(id: Long): TopicView {
-        val topic = topics.stream().filter({ t -> t.id == id }).findFirst().get()
+        val topic = searchTopicForId(id)
         return topicViewMapper.map(topic)
     }
 
@@ -28,5 +29,23 @@ class TopicService(private var topics: List<Topic> = ArrayList(),
         val topic = topicRegisterFormMapper.map(topicRegisterForm)
         topic.id = topics.size.toLong() + 1
         topics = topics.plus(topic)
+    }
+
+    fun edit(topicEditForm: TopicEditForm) {
+        val topic = searchTopicForId(topicEditForm.id)
+        topics = topics.minus(topic).plus(Topic(
+            id = topic.id,
+            title = topicEditForm.title,
+            message = topicEditForm.message,
+            creationDate = topic.creationDate,
+            course = topic.course,
+            author = topic.author,
+            status = topic.status,
+            answers = topic.answers
+        ))
+    }
+
+    private fun searchTopicForId(id: Long): Topic {
+        return topics.stream().filter({ t -> t.id == id }).findFirst().get()
     }
 }
