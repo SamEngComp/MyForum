@@ -24,3 +24,7 @@ Nele foi criado uma aplicação web moderna usando o framework Spring Boot e a l
 **Contribuições**
 
 Este repositório está aberto a contribuições. Se você encontrar algum problema, tiver sugestões de melhorias ou quiser adicionar mais recursos, sinta-se à vontade para criar uma "issue" ou enviar um "pull request".
+
+**Versões**
+
+- [v1.0](https://github.com/SamEngComp/MyForum/tree/v1.0)
